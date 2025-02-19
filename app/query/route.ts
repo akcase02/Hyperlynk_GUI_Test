@@ -13,9 +13,18 @@ async function listInvoices() {
 	return data;
 }
 
+async function removeSeededData() {
+  const data = await sql`
+    DROP TABLE users
+    DROP TABLE invoices
+    DROP TABLE customers
+    DROP TABLE revenue
+  `;
+}
+
 export async function GET() {
   try {
-  	return Response.json(await listInvoices());
+  	return Response.json(await removeSeededData());
   } catch (error) {
   	return Response.json({ error }, { status: 500 });
   }
